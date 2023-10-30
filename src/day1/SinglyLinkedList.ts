@@ -1,13 +1,42 @@
 export default class SinglyLinkedList<T> {
   public length: number
   private head: Node<T> | null
-  private tail: Node<T> | null
 
   constructor() {
     this.length = 0
   }
 
-  prepend(item: T): void {}
+  /**
+   *
+   * @param item
+   *
+   * adds new node at the beginning of a list
+   */
+  prepend(item: T): void {
+    const newNode: Node<T> = {
+      value: item,
+      next: this.head,
+    }
+
+    this.head = newNode
+    this.length++
+  }
+
+  indexOf(item: T) {
+    let nodeIndex = 0
+    let currentNode = this.head
+
+    while (currentNode) {
+      if (item === currentNode.value) {
+        return nodeIndex
+      }
+
+      nodeIndex++
+      currentNode = currentNode.next
+    }
+
+    return -1
+  }
 
   insertAt(item: T, idx: number): void {
     const isPositionInTheRange = idx > -1 && idx <= length
@@ -74,31 +103,8 @@ export default class SinglyLinkedList<T> {
   }
 
   remove(item: T): T | undefined {
-    if (this.length === 0) {
-      return void 0
-    }
-
-    let previousNode: Node<T> | null = null
-    let currentNode = this.head
-
-    while (currentNode) {
-      if (currentNode.value === item) {
-        break
-      }
-
-      previousNode = currentNode
-      currentNode = currentNode.next
-    }
-
-    if (previousNode && currentNode) {
-      previousNode.next = currentNode.next
-
-      this.length--
-
-      return currentNode?.value
-    }
-
-    return void 0
+    const elementIndex = this.indexOf(item)
+    return this.removeAt(elementIndex)
   }
 
   get(idx: number): T | undefined {
@@ -132,7 +138,8 @@ export default class SinglyLinkedList<T> {
     if (idx === 0) {
       this.head = currentNode.next
       this.length--
-      return
+
+      return currentNode.value
     }
 
     let previousNode: Node<T> | null = null
