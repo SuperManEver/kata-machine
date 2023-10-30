@@ -22,7 +22,7 @@ export default class Queue<T> {
 
     const newNode = new Node(item)
 
-    if (!this.tail) {
+    if (!this.head || !this.tail) {
       this.tail = this.head = newNode
       return
     }
