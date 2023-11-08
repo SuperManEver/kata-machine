@@ -79,7 +79,80 @@ export default class DoublyLinkedList<T> {
     this.tail = node
   }
 
-  remove(item: T): T | undefined {}
-  get(idx: number): T | undefined {}
-  removeAt(idx: number): T | undefined {}
+  remove(item: T): T | undefined {
+    const curr = this.getByValye(item)
+
+    if (!curr) {
+      return void 0
+    }
+
+    // At that point we know we found an item to delete
+
+    this.length--
+
+    if (this.length === 0) {
+      const out = this.head?.value
+      this.head = this.tail = undefined
+      return out
+    }
+
+    if (curr.prev) {
+      curr.prev.next = curr.next
+    }
+
+    if (curr.next) {
+      curr.next.prev = curr.prev
+    }
+
+    if (curr === this.head) {
+      this.head = curr.next
+    }
+
+    if (curr === this.tail) {
+      this.tail = curr.prev
+    }
+
+    curr.prev = curr.next = undefined
+    return curr.value
+  }
+
+  get(idx: number): T | undefined {
+    const node = this.getAt(idx)
+
+    return node?.value
+  }
+
+  removeAt(idx: number): T | undefined {
+    const node = this.getAt(idx)
+
+    if (node) {
+      return this.remove(node.value)
+    }
+
+    return void 0
+  }
+
+  private getAt(idx: number): Node<T> | undefined {
+    let curr = this.head
+
+    for (let i = 0; curr && i < idx; i++) {
+      curr = curr.next
+    }
+
+    return curr
+  }
+
+  private getByValye(value: T): Node<T> | undefined {
+    let curr = this.head
+
+    for (let i = 0; curr && i < this.length; i++) {
+      if (curr.value === value) {
+        break
+      }
+
+      curr = curr.next
+    }
+
+    return curr
+  }
 }
