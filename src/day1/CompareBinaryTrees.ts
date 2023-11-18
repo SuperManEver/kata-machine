@@ -10,8 +10,8 @@ export default function compare(
     return false
   }
 
-  if (a.value === b.value) {
-    return compare(a.left, b.left) && compare(a.right, b.right)
+  if (a.value !== b.value) {
+    return false
   }
 
   return compare(a.left, b.left) && compare(a.right, b.right)
