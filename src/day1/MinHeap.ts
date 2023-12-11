@@ -1,4 +1,4 @@
-export class MinHeap2 {
+export default class MinHeap {
   public length: number
   private data: number[]
 
@@ -33,12 +33,12 @@ export class MinHeap2 {
   }
 
   private heapifyDown(idx: number): void {
+    const lIdx = this.leftChild(idx)
+    const rIdx = this.rightChild(idx)
+
     if (idx >= this.length) {
       return
     }
-
-    const lIdx = this.leftChild(idx)
-    const rIdx = this.rightChild(idx)
 
     if (idx >= this.length || lIdx >= this.length) {
       return
@@ -50,15 +50,16 @@ export class MinHeap2 {
 
     if (lValue > rValue && value > rValue) {
       this.data[idx] = rValue
-      this.data[rIdx] = rValue
+      this.data[rIdx] = value
       this.heapifyDown(rIdx)
     } else if (rValue > lValue && value > lValue) {
       this.data[idx] = lValue
       this.data[lIdx] = value
-      this.heapifyDown(idx)
+      this.heapifyDown(lIdx)
     }
   }
 
+  // probably its used on insert operations
   private heapifyUp(idx: number): void {
     if (idx === 0) {
       return
