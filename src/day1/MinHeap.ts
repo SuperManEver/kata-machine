@@ -32,6 +32,10 @@ export default class MinHeap {
     return out
   }
 
+  get isEmpty(): boolean {
+    return this.length === 0
+  }
+
   private heapifyDown(idx: number): void {
     const lIdx = this.leftChild(idx)
     const rIdx = this.rightChild(idx)
