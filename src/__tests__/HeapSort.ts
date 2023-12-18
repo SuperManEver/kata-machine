@@ -1,10 +1,9 @@
 import heapSort from '@code/HeapSort'
 
 test('heapify array', () => {
-  const input = [70, 20, 100, 60, 15, 90]
-  const out = [15, 20, 60, 70, 90, 100]
+  const input = [12, 11, 13, 5, 6, 7]
 
-  const result = heapSort(input)
+  heapSort(input)
 
-  expect(result).toEqual(out)
+  expect(input).toEqual([5, 6, 7, 11, 12, 13])
 })
