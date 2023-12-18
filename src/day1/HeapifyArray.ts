@@ -108,4 +108,43 @@ class MinHeap {
   }
 }
 
-export default MinHeap
+function minHeap(arr: number[]): void {
+  const len = arr.length
+  const middle = Math.floor(arr.length / 2)
+
+  for (let i = middle; i >= 0; i--) {
+    heapify(arr, len, i)
+  }
+}
+
+function leftChild(idx: number): number {
+  return 2 * idx + 1
+}
+
+function rightChild(idx: number): number {
+  return 2 * idx + 2
+}
+
+function heapify(arr: number[], len: number, idx: number): void {
+  let smallest = idx
+  const lChild = leftChild(idx)
+  const rChild = rightChild(idx)
+
+  if (lChild < len && arr[lChild] <= arr[smallest]) {
+    smallest = lChild
+  }
+
+  if (rChild < len && arr[rChild] <= arr[smallest]) {
+    smallest = rChild
+  }
+
+  if (smallest !== idx) {
+    const temp = arr[idx]
+    arr[idx] = arr[smallest]
+    arr[smallest] = temp
+
+    heapify(arr, len, smallest)
+  }
+}
+
+export default minHeap
