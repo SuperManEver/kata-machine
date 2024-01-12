@@ -162,6 +162,24 @@ export default class SinglyLinkedList<T> {
 
     return currentNode ? currentNode.value : void 0
   }
+
+  printList(): void {
+    let current: Node<T> | null = this.head
+
+    let result = ''
+
+    while (current) {
+      if (!current.next) {
+        result += ` ${current.value}`
+      } else {
+        result += ` ${current.value} ->`
+      }
+
+      current = current.next
+    }
+
+    console.log(result)
+  }
 }
 
 class Node<T> {
