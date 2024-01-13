@@ -199,6 +199,25 @@ export default class SinglyLinkedList<T> {
       current = current.next
     }
   }
+
+  lastKth(k: number): void {
+    function traverse(node: Node<T>, k: number): any {
+      if (!node.next) {
+        return k - 1
+      }
+
+      const index = traverse(node.next, k)
+
+      if (index === 0) {
+        console.log('result: ', node.value)
+        return
+      }
+
+      return index - 1
+    }
+
+    this.head && traverse(this.head, k)
+  }
 }
 
 class Node<T> {

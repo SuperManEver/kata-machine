@@ -7,10 +7,13 @@ test('linked-list', function () {
   list.append(5)
   list.append(7)
   list.append(5)
+  list.append(6)
+  list.append(3)
+  list.append(4)
   list.append(9)
   list.append(7)
 
-  list.removeDups()
+  list.lastKth(4)
 
   list.printList()
 
