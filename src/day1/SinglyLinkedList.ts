@@ -180,6 +180,25 @@ export default class SinglyLinkedList<T> {
 
     console.log(result)
   }
+
+  removeDups() {
+    const store = new Set<T>()
+
+    let current = this.head
+    let prev: Node<T> | null = null
+
+    while (current) {
+      if (store.has(current.value)) {
+        if (prev) {
+          prev.next = current.next
+        }
+      } else {
+        store.add(current.value)
+      }
+      prev = current
+      current = current.next
+    }
+  }
 }
 
 class Node<T> {

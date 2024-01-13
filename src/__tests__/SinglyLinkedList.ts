@@ -6,7 +6,11 @@ test('linked-list', function () {
 
   list.append(5)
   list.append(7)
+  list.append(5)
   list.append(9)
+  list.append(7)
+
+  list.removeDups()
 
   list.printList()
 
