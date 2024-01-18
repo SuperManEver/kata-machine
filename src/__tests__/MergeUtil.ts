@@ -9,7 +9,7 @@ test('merge', function () {
   expect(nums1).toEqual([1, 2, 2, 3, 5, 6])
 })
 
-test.only('merge', function () {
+test('merge', function () {
   const nums1 = [4, 5, 6, 0, 0, 0]
   const nums2 = [1, 2, 3]
 
@@ -50,4 +50,15 @@ test('merge', function () {
     6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 9, 9,
     9, 9, 9, 9,
   ])
+})
+
+test('merge', function () {
+  const nums1 = [0, 2, 0, 0, 0, 0, 0, 0]
+  const nums2 = [-1, 1, 1, 2, 2, 3]
+
+  merge(nums1, 2, nums2, 6)
+
+  console.log('result: ', nums1)
+
+  expect(nums1).toEqual([-1, 0, 1, 1, 2, 2, 2, 3])
 })
