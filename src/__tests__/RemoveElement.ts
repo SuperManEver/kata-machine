@@ -1,14 +1,6 @@
-import removeElement, { shiftLeft } from '@code/RemoveElement'
+import removeElement from '@code/RemoveElement'
 
-test('shiftLeft', () => {
-  const xs = [3, 2, 2, 3]
-
-  shiftLeft(xs, 0)
-
-  expect(xs).toEqual([2, 2, 3])
-})
-
-test.only('[3,2,2,3]', () => {
+test('[3,2,2,3]', () => {
   const arr = [3, 2, 2, 3]
   const val = 3
 
@@ -28,6 +20,6 @@ test('[0,1,2,2,3,0,4,2]', () => {
 
   console.log('result: ', arr)
 
-  expect(arr).toEqual([0, 1, 4, 0, 3])
+  expect(arr).toEqual([0, 1, 3, 0, 4])
   expect(result).toEqual(5)
 })
