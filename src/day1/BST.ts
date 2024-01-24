@@ -72,8 +72,45 @@ class BinarySearchTree {
   private inOrderTraversalNode(root: TreeNode | null, result: number[]): void {
     if (root !== null) {
       this.inOrderTraversalNode(root.left, result)
+
+      console.log(root.value)
+
       result.push(root.value)
       this.inOrderTraversalNode(root.right, result)
+    }
+  }
+
+  preOrderTraversal(): number[] {
+    const result: number[] = []
+
+    this.preOrderTraversalNode(this.root, result)
+    return result
+  }
+
+  private preOrderTraversalNode(root: TreeNode | null, result: number[]): void {
+    if (root !== null) {
+      result.push(root.value)
+
+      this.inOrderTraversalNode(root.left, result)
+      this.inOrderTraversalNode(root.right, result)
+    }
+  }
+
+  postOrderTraversal(): number[] {
+    const result: number[] = []
+
+    this.postOrderTraversalNode(this.root, result)
+    return result
+  }
+
+  private postOrderTraversalNode(
+    root: TreeNode | null,
+    result: number[]
+  ): void {
+    if (root !== null) {
+      this.inOrderTraversalNode(root.left, result)
+      this.inOrderTraversalNode(root.right, result)
+      result.push(root.value)
     }
   }
 
@@ -105,7 +142,13 @@ bst.insert(7)
 // console.log(bst.search(5)) // true
 // console.log(bst.search(8)) // false
 
-// const inOrderValues = bst.inOrderTraversal()
-// console.log(inOrderValues) // [3, 5, 7, 10, 15]
+const inOrderValues = bst.inOrderTraversal()
+console.log(inOrderValues) // [3, 5, 7, 10, 15]
 
-console.log(bst.findMinimumValue())
+const preOrderValues = bst.preOrderTraversal()
+console.log(preOrderValues) // [3, 5, 7, 10, 15]
+
+const postOrderValues = bst.postOrderTraversal()
+console.log(postOrderValues) // [3, 5, 7, 10, 15]
+
+// console.log(bst.findMinimumValue())
