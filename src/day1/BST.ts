@@ -129,15 +129,61 @@ class BinarySearchTree {
 
     return this.findMinimumValueNode(node.left)
   }
+
+  delete(key: number): void {
+    this.root = this.deleteValueNode(this.root, key)
+  }
+
+  private deleteValueNode(root: TreeNode | null, key: number): TreeNode | null {
+    if (!root) {
+      return null
+    }
+
+    if (key === root.value) {
+      // Node to be deleted found
+      root = this.deleteNode(root)
+    } else if (key < root.value) {
+      root.left = this.deleteValueNode(root.left, key)
+    } else if (key > root.value) {
+      root.right = this.deleteValueNode(root.right, key)
+    }
+
+    return root
+  }
+
+  private deleteNode(root: TreeNode): TreeNode | null {
+    // Case 1: Node with only one child or no child
+    if (root.left === null) {
+      return root.right
+    } else if (root.right === null) {
+      return root.left
+    }
+
+    // Case 2: Node with two children
+    // Find the smallest value in the right subtree (successor)
+    root.value = this.findMinValue(root.right)
+
+    // Delete the successor from the right subtree
+    root.right = this.deleteValueNode(root.right, root.value)
+
+    return root
+  }
+
+  private findMinValue(root: TreeNode): number {
+    while (root.left !== null) {
+      root = root.left
+    }
+    return root.value
+  }
 }
 
 // Example usage:
 const bst = new BinarySearchTree()
-bst.insert(10)
-bst.insert(5)
-bst.insert(15)
-bst.insert(3)
-bst.insert(7)
+// bst.insert(10)
+// bst.insert(5)
+// bst.insert(15)
+// bst.insert(3)
+// bst.insert(7)
 
 // console.log(bst.search(5)) // true
 // console.log(bst.search(8)) // false
@@ -145,10 +191,13 @@ bst.insert(7)
 const inOrderValues = bst.inOrderTraversal()
 console.log(inOrderValues) // [3, 5, 7, 10, 15]
 
-const preOrderValues = bst.preOrderTraversal()
-console.log(preOrderValues) // [3, 5, 7, 10, 15]
+bst.delete(5)
+console.log(bst.inOrderTraversal()) // [3, 7, 10, 15]
 
-const postOrderValues = bst.postOrderTraversal()
-console.log(postOrderValues) // [3, 5, 7, 10, 15]
+// const preOrderValues = bst.preOrderTraversal()
+// console.log(preOrderValues) // [3, 5, 7, 10, 15]
+
+// const postOrderValues = bst.postOrderTraversal()
+// console.log(postOrderValues) // [3, 5, 7, 10, 15]
 
 // console.log(bst.findMinimumValue())
