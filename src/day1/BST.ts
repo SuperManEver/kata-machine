@@ -229,6 +229,25 @@ class BinarySearchTree {
 
     return 1 + Math.max(this.treeHeight(root.left), this.treeHeight(root.right))
   }
+
+  findMinDepth(): number {
+    return this.findTreeMinDepth(this.root)
+  }
+
+  private findTreeMinDepth(root: TreeNode | null): number {
+    if (!root) {
+      return 0
+    }
+
+    if (!root.left && !root.right) {
+      return 0
+    }
+
+    const leftHeight = this.findTreeMinDepth(root.left)
+    const rightHeight = this.findTreeMinDepth(root.right)
+
+    return 1 + Math.min(leftHeight, rightHeight)
+  }
 }
 
 // Example usage:
@@ -239,11 +258,14 @@ bst.insert(15)
 bst.insert(3)
 bst.insert(7)
 bst.insert(8)
+bst.insert(17)
 
 const result = bst.byLevelTraverse()
 console.log(result)
 
-console.log(bst.height())
+console.log('max: ', bst.height())
+
+console.log('min: ', bst.findMinDepth())
 
 // console.log(bst.search(5)) // true
 // console.log(bst.search(8)) // false
