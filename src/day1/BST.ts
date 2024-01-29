@@ -1,3 +1,5 @@
+import Queue from './Queue'
+
 class TreeNode {
   value: number
   left: TreeNode | null
@@ -175,24 +177,63 @@ class BinarySearchTree {
     }
     return root.value
   }
+
+  byLevelTraverse(): number[] | null {
+    if (!this.root) {
+      return null
+    }
+
+    const result: number[] = []
+
+    const traverseQueue = new Queue<TreeNode>()
+    traverseQueue.enqueue(this.root)
+
+    return this.levelTraverse(traverseQueue, result)
+  }
+
+  private levelTraverse(traverse: Queue<TreeNode>, result: number[]): number[] {
+    if (traverse.isEmpty) {
+      return result
+    }
+
+    const node = traverse.deque()
+
+    if (node) {
+      if (node.left && node.right) {
+        traverse.enqueue(node.left)
+        traverse.enqueue(node.right)
+      } else if (node.left) {
+        traverse.enqueue(node.left)
+      } else if (node.right) {
+        traverse.enqueue(node.right)
+      }
+
+      result.push(node.value)
+    }
+
+    return this.levelTraverse(traverse, result)
+  }
 }
 
 // Example usage:
 const bst = new BinarySearchTree()
-// bst.insert(10)
-// bst.insert(5)
-// bst.insert(15)
-// bst.insert(3)
-// bst.insert(7)
+bst.insert(10)
+bst.insert(5)
+bst.insert(15)
+bst.insert(3)
+bst.insert(7)
+
+const result = bst.byLevelTraverse()
+console.log(result)
 
 // console.log(bst.search(5)) // true
 // console.log(bst.search(8)) // false
 
-const inOrderValues = bst.inOrderTraversal()
-console.log(inOrderValues) // [3, 5, 7, 10, 15]
+// const inOrderValues = bst.inOrderTraversal()
+// console.log(inOrderValues) // [3, 5, 7, 10, 15]
 
-bst.delete(5)
-console.log(bst.inOrderTraversal()) // [3, 7, 10, 15]
+// bst.delete(5)
+// console.log(bst.inOrderTraversal()) // [3, 7, 10, 15]
 
 // const preOrderValues = bst.preOrderTraversal()
 // console.log(preOrderValues) // [3, 5, 7, 10, 15]
