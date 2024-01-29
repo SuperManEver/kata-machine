@@ -213,6 +213,22 @@ class BinarySearchTree {
 
     return this.levelTraverse(traverse, result)
   }
+
+  height(): number {
+    return this.treeHeight(this.root)
+  }
+
+  private treeHeight(root: TreeNode | null): number {
+    if (!root) {
+      return 0
+    }
+
+    if (!root.left && !root.right) {
+      return 0
+    }
+
+    return 1 + Math.max(this.treeHeight(root.left), this.treeHeight(root.right))
+  }
 }
 
 // Example usage:
@@ -222,9 +238,12 @@ bst.insert(5)
 bst.insert(15)
 bst.insert(3)
 bst.insert(7)
+bst.insert(8)
 
 const result = bst.byLevelTraverse()
 console.log(result)
+
+console.log(bst.height())
 
 // console.log(bst.search(5)) // true
 // console.log(bst.search(8)) // false
