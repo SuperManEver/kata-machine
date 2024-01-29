@@ -248,6 +248,23 @@ class BinarySearchTree {
 
     return 1 + Math.min(leftHeight, rightHeight)
   }
+
+  printAllNodesByDistanceK(k: number): void {
+    this.printAllTreeNodesByDistanceK(this.root, k)
+  }
+
+  private printAllTreeNodesByDistanceK(root: TreeNode | null, k: number): void {
+    if (!root) {
+      return
+    }
+
+    if (root && k === 0) {
+      console.log('At K: ', root.value)
+    }
+
+    this.printAllTreeNodesByDistanceK(root.left, k - 1)
+    this.printAllTreeNodesByDistanceK(root.right, k - 1)
+  }
 }
 
 // Example usage:
@@ -266,6 +283,8 @@ console.log(result)
 console.log('max: ', bst.height())
 
 console.log('min: ', bst.findMinDepth())
+
+bst.printAllNodesByDistanceK(2)
 
 // console.log(bst.search(5)) // true
 // console.log(bst.search(8)) // false
